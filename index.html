@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Stock - 上班族必備的台股看盤神器</title>
+    <meta name="description" content="Smart Stock 是一款專為上班族設計的瀏覽器擴充功能，提供台股即時報價、損益試算、雲端同步以及獨家的「老闆鍵」功能。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm border-b border-gray-100 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <img src="assets/logo.svg" alt="Smart Stock Logo" class="w-8 h-8">
+                    <span class="font-bold text-xl tracking-tight text-gray-900">Smart Stock</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">功能特色</a>
+                    <a href="#privacy" class="text-gray-600 hover:text-blue-600 transition-colors">隱私權</a>
+                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">立即下載</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 hero-pattern overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium mb-2">
+                        🚀 上班族看盤首選工具
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                        掌握台股脈動，<br>
+                        <span class="gradient-text">低調</span> 且 <span class="gradient-text">高效</span>。
+                    </h1>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Smart Stock 讓您在瀏覽器角落即時追蹤股價。內建損益試算、雲端同步，以及專為辦公室設計的「老闆鍵」，讓您投資理財不尷尬。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#" class="flex items-center justify-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 font-medium text-lg">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12C24 5.373 18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-17h2v8h-2zm0 10h2v2h-2z"/></svg>
+                            Chrome 下載
+                        </a>
+                        <a href="#" class="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium text-lg">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12C24 5.373 18.627 0 12 0zm-1.6 6.4c1.6 0 3.1.6 4.2 1.7l-1.3 1.3c-.8-.8-1.8-1.2-2.9-1.2-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5c2.1 0 3.9-1.4 4.4-3.4h-4.4v-1.8h6.3c.1.3.1.6.1 1 0 3.4-2.3 5.9-5.9 5.9-3.3 0-6-2.7-6-6s2.7-6 6-6z"/></svg>
+                            Firefox 下載
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-2xl opacity-20 animate-pulse"></div>
+                    <img src="assets/hero_image.svg" alt="Smart Stock Interface" class="relative rounded-xl shadow-2xl border border-gray-200 bg-white transform hover:-translate-y-1 transition-transform duration-300">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">強大功能，極致輕量</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我們移除了所有不必要的干擾，只保留投資人最需要的功能。</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">即時報價 & 線圖</h3>
+                    <p class="text-gray-600">每 10 秒自動更新股價，提供當日走勢圖。支援盤前自動重置線圖，開盤即戰。</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">損益試算</h3>
+                    <p class="text-gray-600">輸入成本與股數，自動計算即時損益與報酬率。支援多組投資組合管理。</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">老闆鍵 (Boss Mode)</h3>
+                    <p class="text-gray-600">按下 ESC 鍵，瞬間切換為「連線錯誤」畫面。完美偽裝，保護您的隱私。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Section -->
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="assets/fb_cover.svg" alt="Feature Preview" class="rounded-2xl shadow-xl">
+                </div>
+                <div class="md:w-1/2 space-y-8">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">1</div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-2">雲端同步</h4>
+                            <p class="text-gray-600">使用 Google 帳號登入，您的自選股清單將自動同步至所有裝置。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">2</div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-2">深色模式</h4>
+                            <p class="text-gray-600">內建深色/淺色主題切換，適應各種瀏覽環境，保護眼睛。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">3</div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-2">跨瀏覽器支援</h4>
+                            <p class="text-gray-600">完美支援 Chrome、Edge、Brave 以及 Firefox 瀏覽器。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <img src="assets/logo.svg" alt="Logo" class="w-6 h-6 opacity-75">
+                    <span class="text-white font-bold text-lg">Smart Stock</span>
+                </div>
+                <div class="text-sm">
+                    &copy; 2025 Smart Stock. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
