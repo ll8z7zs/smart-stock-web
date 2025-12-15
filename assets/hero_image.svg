@@ -18,7 +18,7 @@
 
   <!-- Left Side: Text -->
   <g transform="translate(100, 200)">
-    <text x="0" y="0" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#0f172a">Smart Stock</text>
+    <text x="0" y="0" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#0f172a">Leek Guard</text>
     <text x="0" y="60" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Track Taiwan Stocks & Portfolio</text>
     <text x="0" y="100" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Directly in Your Browser.</text>
     
