@@ -19,12 +19,13 @@
   <!-- Left Side: Text -->
   <g transform="translate(100, 200)">
     <text x="0" y="0" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#0f172a">Leek Guard</text>
-    <text x="0" y="60" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Track Taiwan Stocks & Portfolio</text>
-    <text x="0" y="100" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Directly in Your Browser.</text>
+    <text x="0" y="60" font-family="Arial, sans-serif" font-weight="bold" font-size="48" fill="#0f172a">韭菜守護者</text>
+    <text x="0" y="120" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Track Taiwan Stocks & Portfolio</text>
+    <text x="0" y="160" font-family="Arial, sans-serif" font-size="32" fill="#64748b">Directly in Your Browser.</text>
     
     <!-- CTA Button Mockup -->
-    <rect x="0" y="150" width="240" height="64" rx="8" fill="#2563eb" />
-    <text x="120" y="192" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="white" text-anchor="middle">Add to Chrome</text>
+    <rect x="0" y="210" width="240" height="64" rx="8" fill="#2563eb" />
+    <text x="120" y="252" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="white" text-anchor="middle">Add to Chrome</text>
   </g>
 
   <!-- Right Side: App Mockup -->
