@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>市場情報儀表板 | Leek Guard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0f172a',      // Slate 900
+                            card: '#1e293b',    // Slate 800
+                            text: '#f1f5f9',    // Slate 100
+                            sub: '#94a3b8',     // Slate 400
+                            accent: '#3b82f6'   // Blue 500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [v-cloak] { display: none; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-dark-bg text-dark-text min-h-screen font-sans antialiased">
+    <div id="app" v-cloak class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-dark-card border-r border-slate-700 flex-shrink-0">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <img src="./market-intelligence/logo_blue.png" onerror="this.src='https://via.placeholder.com/40'" class="w-10 h-10" alt="Logo">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">韭菜守護者</h1>
+                </div>
+
+                <nav class="space-y-2">
+                    <button @click="filterType = 'all'" 
+                        :class="['w-full text-left px-4 py-3 rounded-lg transition-colors', filterType === 'all' ? 'bg-blue-600 text-white' : 'hover:bg-slate-700 text-slate-300']">
+                        📊 全部報告
+                    </button>
+                    
+                    <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase">每日追蹤</div>
+                    <button @click="filterType = 'daily_brief'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'daily_brief' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        🇺🇸 美股晨報
+                    </button>
+                    <button @click="filterType = 'daily_chips'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'daily_chips' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        🇹🇼 籌碼日報
+                    </button>
+                    <button @click="filterType = 'daily_futures'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'daily_futures' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        💱 外資匯率
+                    </button>
+
+                    <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase">每週趨勢</div>
+                    <button @click="filterType = 'weekly_tech'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'weekly_tech' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        🤖 科技巨頭
+                    </button>
+                    <button @click="filterType = 'weekly_calendar'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'weekly_calendar' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        📅 重要行事曆
+                    </button>
+
+                    <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase">每月/其他</div>
+                    <button @click="filterType = 'monthly'" 
+                        :class="['w-full text-left px-4 py-2 rounded-lg text-sm transition-colors', filterType === 'monthly' ? 'bg-slate-700 text-white' : 'hover:bg-slate-700/50 text-slate-400']">
+                        📈 月營收/總經
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="p-6 mt-auto text-xs text-slate-500">
+                <p>最後更新: {{ lastUpdated }}</p>
+                <p class="mt-2">© 2026 Leek Guard</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10 overflow-auto">
+            <header class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-white">{{ currentFilterName }}</h2>
+                <div class="flex space-x-2">
+                    <!-- Search could go here -->
+                </div>
+            </header>
+
+            <div v-if="loading" class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            </div>
+
+            <div v-else-if="filteredReports.length === 0" class="text-center py-20 text-slate-500">
+                <p class="text-xl">暫無此類別的報告數據</p>
+            </div>
+
+            <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Report Card -->
+                <div v-for="item in filteredReports" :key="item.id" 
+                    @click="openModal(item)"
+                    class="group bg-dark-card rounded-xl overflow-hidden shadow-lg border border-slate-700/50 hover:border-blue-500/50 transition-all cursor-pointer hover:-translate-y-1">
+                    
+                    <div class="aspect-square w-full overflow-hidden bg-slate-900 relative">
+                        <img :src="item.image_url" class="object-cover w-full h-full opacity-90 group-hover:opacity-100 transition-opacity" loading="lazy">
+                        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs text-white">
+                            {{ item.date }}
+                        </div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span :class="['w-2 h-2 rounded-full', getTypeColor(item.type)]"></span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider">{{ getTypeLabel(item.type) }}</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-100 line-clamp-2 leading-tight">{{ item.title || '市場報告' }}</h3>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Image Modal -->
+        <div v-if="selectedItem" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4" @click.self="selectedItem = null">
+            <div class="relative max-w-7xl max-h-screen w-full flex flex-col items-center">
+                <button @click="selectedItem = null" class="absolute top-4 right-4 text-white hover:text-blue-400 text-3xl">&times;</button>
+                
+                <img :src="selectedItem.image_url" class="max-h-[85vh] object-contain shadow-2xl rounded-lg border border-slate-700">
+                
+                <div class="mt-4 text-center">
+                    <h3 class="text-2xl font-bold text-white mb-1">{{ selectedItem.title }}</h3>
+                    <p class="text-slate-400">{{ selectedItem.date }} • {{ getTypeLabel(selectedItem.type) }}</p>
+                    <a :src="selectedItem.image_url" target="_blank" class="inline-block mt-4 text-blue-400 hover:text-blue-300 underline text-sm">在新分頁開啟原圖</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    reports: [],
+                    lastUpdated: '-',
+                    loading: true,
+                    filterType: 'all',
+                    selectedItem: null
+                }
+            },
+            computed: {
+                filteredReports() {
+                    if (this.filterType === 'all') return this.reports;
+                    if (this.filterType === 'monthly') {
+                        return this.reports.filter(r => 
+                            r.type.includes('monthly') || r.type.includes('macro') || r.type.includes('revenue')
+                        );
+                    }
+                    if (this.filterType === 'weekly_tech') {
+                        return this.reports.filter(r => 
+                            r.type.includes('weekly') && (r.type.includes('tech') || r.type.includes('asian'))
+                        );
+                    }
+                    // Exact match or partial for others
+                    return this.reports.filter(r => r.type.includes(this.filterType));
+                },
+                currentFilterName() {
+                    const map = {
+                        'all': '最新市場報告',
+                        'daily_brief': '美股晨報',
+                        'daily_chips': '籌碼日報',
+                        'daily_futures': '外資匯率雙監控',
+                        'weekly_tech': '科技與亞股趨勢',
+                        'weekly_calendar': '一週重要事件',
+                        'monthly': '月度與總經報告'
+                    }
+                    return map[this.filterType] || '篩選結果';
+                }
+            },
+            methods: {
+                async fetchManifest() {
+                    try {
+                        // In GitHub Pages, manifest is at ./data/manifest.json usually, or we can configure it
+                        // Based on plan: market-intelligence repo structure
+                        // Actually, manifest is likely at root based on ManifestManager default?
+                        // "data/manifest.json" in ManifestManager default.
+                        // So url is ./data/manifest.json
+                        const res = await fetch('./data/manifest.json');
+                        if (!res.ok) throw new Error('Manifest not found');
+                        const data = await res.json();
+                        this.reports = data.reports || [];
+                        this.lastUpdated = data.last_updated || 'Unknown';
+                    } catch (e) {
+                        console.error(e);
+                        // Fallback/Mock for local testing if needed
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                openModal(item) {
+                    this.selectedItem = item;
+                    document.body.style.overflow = 'hidden';
+                },
+                getTypeLabel(type) {
+                    const map = {
+                        'daily_brief': '美股晨報',
+                        'daily_chips': '籌碼日報',
+                        'daily_futures': '外資匯率',
+                        'weekly_tech_trends': '七巨頭趨勢',
+                        'weekly_asian_tech': '亞股供應鏈',
+                        'weekly_calendar': '財經日曆',
+                        'weekly_earnings': '財報日曆',
+                        'monthly_revenue': '月營收黑馬',
+                        'macro_dashboard': '總經儀表板',
+                        'sector_heatmap': '資金熱力圖'
+                    }
+                    return map[type] || type;
+                },
+                getTypeColor(type) {
+                    if (type.includes('daily')) return 'bg-green-500';
+                    if (type.includes('weekly')) return 'bg-blue-500';
+                    if (type.includes('monthly') || type.includes('macro')) return 'bg-purple-500';
+                    return 'bg-slate-500';
+                }
+            },
+            watch: {
+                selectedItem(val) {
+                    if (!val) document.body.style.overflow = '';
+                }
+            },
+            mounted() {
+                this.fetchManifest();
+                
+                // Keyboard closing
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') this.selectedItem = null;
+                });
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
